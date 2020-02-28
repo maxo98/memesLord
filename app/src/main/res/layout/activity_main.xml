@@ -13,13 +13,13 @@
         android:layout_marginTop="150dp"
         android:layout_marginBottom="100dp"
         android:text="MemesLord"
-        app:layout_constraintBottom_toTopOf="@+id/NewMeme"
+        app:layout_constraintBottom_toTopOf="@+id/buttonNewMeme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/NewMeme"
+        android:id="@+id/buttonNewMeme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="400dp"
@@ -27,5 +27,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonRandomMeme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="300dp"
+        android:text="Random Meme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNewMeme" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

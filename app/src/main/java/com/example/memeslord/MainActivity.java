@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button buttonNewMeme = findViewById(R.id.buttonNewMeme);
+
         buttonNewMeme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -22,5 +23,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(goNewMeme);
             }
         });
+
+
     }
 }

@@ -22,19 +22,10 @@ public class CreateMeme extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageSelected);
 
         Intent intent = getIntent();
-        String imagePath = intent.getStringExtra("SelectedImage");
-        imagePath = imagePath.split("raw/")[1];
-        PermissionChecker.verifyStoragePermissions(this);
-        File file = new  File(imagePath);
-        System.out.println("file : " + file);
-        if(file.exists()) {
-            Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-            System.out.println(bitmap);
-            imageView.setImageBitmap(bitmap);
-        }
-        else {
-            System.out.println("mange tes morts");
-        }
+        String uriString = intent.getStringExtra("SelectedImage");
+        Uri imageUri = Uri.parse(uriString);
+        imageView.setImageURI(imageUri);
+
     }
 
 }

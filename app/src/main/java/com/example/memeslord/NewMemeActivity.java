@@ -95,9 +95,8 @@ public class NewMemeActivity extends AppCompatActivity {
             //Uri of camera image
             imageUri = photoURI;
         }
-
-        String uriString = imageUri.toString();
-        if(uriString != "") {
+        if(imageUri != null) {
+            String uriString = imageUri.toString();
             Intent goCreateMeme = new Intent(this, CreateMeme.class);
             goCreateMeme.putExtra("SelectedImage", uriString);
             startActivity(goCreateMeme);

@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,17 +12,19 @@ import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class NewMemeActivity extends AppCompatActivity {
     private static final int PICK_IMAGE = 100;
     private static final int CAMERA_IMAGE = 200;
-    private String fileName;
+    private String currentPhotoPath;
+    private Uri photoURI;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (savedInstanceState != null)
-            fileName = savedInstanceState.getString("fileName");
 
         setContentView(R.layout.activity_new_meme);
 
@@ -35,11 +36,6 @@ public class NewMemeActivity extends AppCompatActivity {
         buttonCameraImage.setOnClickListener((v) -> {openCamera();});
     }
 
-    public void onSaveInstanceState(Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putString("fileName", fileName);
-    }
-
     private void openGallery() {
         Intent gallery =
                 new Intent(Intent.ACTION_PICK,
@@ -47,34 +43,64 @@ public class NewMemeActivity extends AppCompatActivity {
         startActivityForResult(gallery, PICK_IMAGE);
     }
 
-    private void openCamera() {
-        try {
-            File tempFile = File.createTempFile("memesLord", ".jpg");
-            fileName = tempFile.getAbsolutePath();
-            Uri uri = Uri.fromFile(tempFile);
-            Intent camera =
-                    new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            camera.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            camera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-            startActivityForResult(camera, CAMERA_IMAGE);
-        }
-        catch (IOException e) {
-            System.err.println("File couldn't be created");
-        }
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
 
+    private void openCamera() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                System.err.println("Erreur a la création des fichiers");
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, CAMERA_IMAGE);
+            }
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && (requestCode == PICK_IMAGE || requestCode == CAMERA_IMAGE)) {
+
+        Uri imageUri = null;
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             if(data != null) {
-                Uri imageUri = data.getData();
-                String uriString = imageUri.toString();
-                Intent goCreateMeme = new Intent(this, CreateMeme.class);
-                goCreateMeme.putExtra("SelectedImage", uriString);
-                startActivity(goCreateMeme);
+                imageUri = data.getData();
             }
+        }
+        if(resultCode == RESULT_OK && requestCode == CAMERA_IMAGE) {
+            //Uri of camera image
+            imageUri = photoURI;
+        }
+
+        String uriString = imageUri.toString();
+        if(uriString != "") {
+            Intent goCreateMeme = new Intent(this, CreateMeme.class);
+            goCreateMeme.putExtra("SelectedImage", uriString);
+            startActivity(goCreateMeme);
         }
     }
 }

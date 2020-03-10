@@ -8,30 +8,44 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CreateMeme extends AppCompatActivity {
 
-    private ImageView imageView;
+    private String currentImagePath;
 
     protected  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meme);
 
-        imageView = (ImageView) findViewById(R.id.imageSelected);
-
+        //set the selected image to the imageView
+        ImageView imageView = findViewById(R.id.imageSelected);
         Intent intent = getIntent();
         String uriString = intent.getStringExtra("SelectedImage");
         Uri imageUri = Uri.parse(uriString);
         imageView.setImageURI(imageUri);
 
+        FrameLayout frameLayout = findViewById(R.id.frameImage);
+        Button saveButton = findViewById(R.id.buttonSave);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Bitmap bitmap = viewToBitmap(frameLayout);
+                if(bitmap != null) {
+                    saveImage(bitmap);
+                }
+            }
+        });
     }
 
     public Bitmap viewToBitmap(View view) {
@@ -41,10 +55,16 @@ public class CreateMeme extends AppCompatActivity {
         return bitmap;
     }
 
+    public String getImagePath() {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "/JPEG_" + timeStamp + "_";
+        String storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+        return storageDir + imageFileName + ".jpg";
+    }
     public void saveImage(Bitmap bitmap) {
         try {
-            FileOutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory() + "/path/to/file.png");
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, output);
+            FileOutputStream output = new FileOutputStream(getImagePath());
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, output);
             output.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

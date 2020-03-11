@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonNewMeme = findViewById(R.id.buttonNewMeme);
+        Button Login = findViewById(R.id.buttonNewMeme);
 
-        buttonNewMeme.setOnClickListener(new View.OnClickListener() {
+        Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent goNewMeme = new Intent(v.getContext(), NewMemeActivity.class);

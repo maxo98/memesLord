@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "491442931162",
+    "firebase_url": "https://login-17d86thght.firebaseio.com",
+    "project_id": "login-17d86thght",
+    "storage_bucket": "login-17d86thght.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491442931162:android:f61c7e8ffd317a14652ce3",
+        "android_client_info": {
+          "package_name": "com.example.memeslord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491442931162-stkqclielllkcdun1fjhclvf3it6fg70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDz8lSuQMOGbZy_PRUoaQpk7DvUqdFwuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491442931162-stkqclielllkcdun1fjhclvf3it6fg70.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

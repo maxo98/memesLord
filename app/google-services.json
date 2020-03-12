@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "491442931162-7jl3p18ue64ka6d9ct9h7tm0u2e0m00q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.memeslord",
+            "certificate_hash": "ef997a35f4d53a2f1c0f5cdc740a7822777d84bc"
+          }
+        },
+        {
           "client_id": "491442931162-stkqclielllkcdun1fjhclvf3it6fg70.apps.googleusercontent.com",
           "client_type": 3
         }

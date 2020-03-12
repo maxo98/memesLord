@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
-
-import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonRandomMeme = findViewById(R.id.buttonRandomMeme);
+        Button buttonRandomMeme = findViewById(R.id.buttonReddit);
         buttonRandomMeme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

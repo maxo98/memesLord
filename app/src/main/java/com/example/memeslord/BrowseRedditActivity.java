@@ -41,7 +41,7 @@ public class BrowseRedditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         currentFeed = "memes";
-        setContentView(R.layout.activity_random_meme);
+        setContentView(R.layout.activity_browse_reddit);
         btnRefreshFeed = (Button) findViewById(R.id.btnRefreshFeed);
         mFeedName = (EditText) findViewById(R.id.etFeedName);
 
@@ -78,41 +78,41 @@ public class BrowseRedditActivity extends AppCompatActivity {
         call.enqueue(new Callback<Feed>() {
             @Override
             public void onResponse(Call<Feed> call, Response<Feed> response) {
+                if(response.body()!= null) {
+                    List<Entry> entries = response.body().getEntries();
 
-                List<Entry> entries = response.body().getEntries();
+                    ArrayList<Post> posts = new ArrayList<>();
+                    for (int i = 0; i < entries.size(); ++i) {
+                        ExtractXML extractXML1 = new ExtractXML("<a href=", entries.get(i).getContent());
+                        List<String> postContent = extractXML1.start();
 
+                        ExtractXML extractXML2 = new ExtractXML("<img src=", entries.get(i).getContent());
+                        try {
+                            postContent.add(extractXML2.start().get(0));
+                        } catch (NullPointerException e) {
+                            postContent.add(null);
+                        } catch (IndexOutOfBoundsException e) {
+                            postContent.add(null);
+                        }
 
-                ArrayList<Post> posts = new ArrayList<>();
-                for (int i = 0; i < entries.size(); ++i) {
-                    ExtractXML extractXML1 = new ExtractXML("<a href=", entries.get(i).getContent());
-                    List<String> postContent = extractXML1.start();
-
-                    ExtractXML extractXML2 = new ExtractXML("<img src=", entries.get(i).getContent());
-                    try {
-                        postContent.add(extractXML2.start().get(0));
-                    } catch (NullPointerException e) {
-                        postContent.add(null);
-                    } catch (IndexOutOfBoundsException e) {
-                        postContent.add(null);
+                        posts.add(new Post(entries.get(i).getTitle(), entries.get(i).getAuthor().getName(), postContent.get(0), postContent.get(postContent.size() - 1), postContent.get(2)));
                     }
 
-                    posts.add(new Post(entries.get(i).getTitle(), entries.get(i).getAuthor().getName(), postContent.get(0), postContent.get(postContent.size() - 1), postContent.get(2)));
+                    ListView listView = (ListView) findViewById(R.id.postList);
+                    CustomListAdapter customListAdapter = new CustomListAdapter(BrowseRedditActivity.this, R.layout.card_layout_main, posts);
+                    listView.setAdapter(customListAdapter);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Log.d(TAG, "onItemClick: Clicked: " + posts.get(position).toString());
+
+                            Intent intent = new Intent(BrowseRedditActivity.this, ShowImageActivity.class);
+                            intent.putExtra("@string/img_url", posts.get(position).getImageURL());
+                            startActivity(intent);
+                        }
+                    });
                 }
-
-                ListView listView = (ListView) findViewById(R.id.postList);
-                CustomListAdapter customListAdapter = new CustomListAdapter(BrowseRedditActivity.this, R.layout.card_layout_main, posts);
-                listView.setAdapter(customListAdapter);
-
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Log.d(TAG, "onItemClick: Clicked: " + posts.get(position).toString());
-
-                        Intent intent = new Intent(BrowseRedditActivity.this, ShowImageActivity.class);
-                        intent.putExtra("@string/img_url", posts.get(position).getImageURL());
-                        startActivity(intent);
-                    }
-                });
             }
 
             @Override

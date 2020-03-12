@@ -27,6 +27,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(goNewMeme);
             }
         });
+
+        Button buttonRandomMeme = findViewById(R.id.buttonRandomMeme);
+        buttonRandomMeme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goRandomMeme = new Intent(v.getContext(), RandomMemeActivity.class);
+                startActivity(goRandomMeme);
+            }
+        });
     }
 
 }

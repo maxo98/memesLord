@@ -54,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
                             Intent goNewMeme = new Intent(getApplicationContext(), NewMemeActivity.class);
                             startActivity(goNewMeme);
                             // Sign in success, update UI with the signed-in user's information
-                            Log.e("LoginActivity", "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
 
                             FirebaseUser user = mAuth.getCurrentUser();
                         } else {
@@ -73,19 +72,15 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.e("LoginActivity", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("LoginActivity", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent newMeme  = new Intent(getApplicationContext(), NewMemeActivity.class);
-                            Log.e("LoginActivity", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("LoginActivity", "signInWithEmail:failure", task.getException());
 
                             Toast.makeText(getApplicationContext(), "LE COMPTE EXISTE DEJA", Toast.LENGTH_SHORT).show();
                         }
@@ -112,7 +107,6 @@ public class LoginActivity extends AppCompatActivity {
         });
                 Register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.e("LoginActivity", pseudo. toString().trim());
                 createAccount(pseudo.getText().toString(), password.getText().toString());
 
 

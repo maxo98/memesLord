@@ -1,28 +1,38 @@
 package com.example.memeslord;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CreateMeme extends AppCompatActivity {
+public class CreateMeme extends AppCompatActivity implements View.OnTouchListener, View.OnFocusChangeListener{
 
     private String currentImagePath;
+    private float dX;
+    private float dY;
+    private int lastAction;
+    private FrameLayout frameLayout;
+    private int lineNumber = 1;
 
     protected  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +44,21 @@ public class CreateMeme extends AppCompatActivity {
         String uriString = intent.getStringExtra("SelectedImage");
         Uri imageUri = Uri.parse(uriString);
         imageView.setImageURI(imageUri);
+        //get original text
+        EditText et = findViewById(R.id.textMeme);
+        et.setOnTouchListener(this);
+        et.setOnFocusChangeListener(this);
 
-        FrameLayout frameLayout = findViewById(R.id.frameImage);
+
+        //add New texts to the frame
+        frameLayout = findViewById(R.id.frameImage);
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                addText();
+            }
+        });
+        //button to save the image
         Button saveButton = findViewById(R.id.buttonSave);
-
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Bitmap bitmap = viewToBitmap(frameLayout);
@@ -46,6 +67,63 @@ public class CreateMeme extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void addText() {
+        EditText et = new EditText(this);
+        EditText t = (EditText) findViewById(R.id.textMeme);
+        FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        p.setMargins(350, 800, 0, 0);
+        et.setLayoutParams(p);
+        et.setTextSize(30);
+        et.setBackground(t.getBackground());
+        et.setText("Write something here");
+        et.setClickable(true);
+        et.setId(lineNumber + 1);
+        lineNumber++;
+        frameLayout.addView(et);
+        et.setOnTouchListener(this);
+        et.setOnFocusChangeListener(this);
+
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        EditText t = (EditText) v;
+        if(hasFocus) {
+            t.setText("");
+            Toast.makeText(this, "msdlkfjds", Toast.LENGTH_LONG);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(t, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    public boolean onTouch(View v, MotionEvent event) {
+        EditText t = (EditText) v;
+
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_UP:
+                if (lastAction == MotionEvent.ACTION_DOWN) {
+                    t.requestFocus();
+                }
+                lastAction = MotionEvent.ACTION_UP;
+                break;
+            case MotionEvent.ACTION_DOWN:
+                dX = v.getX() - event.getRawX();
+                dY = v.getY() - event.getRawY();
+                lastAction = MotionEvent.ACTION_DOWN;
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                v.setY(event.getRawY() + dY);
+                v.setX(event.getRawX() + dX);
+                lastAction = MotionEvent.ACTION_MOVE;
+                break;
+
+            default:
+                return false;
+        }
+        return true;
     }
 
     public Bitmap viewToBitmap(View view) {
@@ -72,5 +150,4 @@ public class CreateMeme extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 }

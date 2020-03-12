@@ -34,7 +34,6 @@
 
         <activity android:name=".NewMemeActivity"/>
         <activity android:name=".CreateMeme"/>
-        <activity android:name=".RandomMemeActivity"/>
 
     </application>
 

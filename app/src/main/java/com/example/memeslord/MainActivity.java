@@ -17,21 +17,15 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonNewMeme = findViewById(R.id.buttonNewMeme);
 
-        buttonNewMeme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goNewMeme = new Intent(v.getContext(), NewMemeActivity.class);
-                startActivity(goNewMeme);
-            }
+        buttonNewMeme.setOnClickListener(v -> {
+            Intent goNewMeme = new Intent(v.getContext(), NewMemeActivity.class);
+            startActivity(goNewMeme);
         });
 
         Button buttonRandomMeme = findViewById(R.id.buttonReddit);
-        buttonRandomMeme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goRandomMeme = new Intent(v.getContext(), BrowseRedditActivity.class);
-                startActivity(goRandomMeme);
-            }
+        buttonRandomMeme.setOnClickListener(v -> {
+            Intent goRandomMeme = new Intent(v.getContext(), BrowseRedditActivity.class);
+            startActivity(goRandomMeme);
         });
     }
 

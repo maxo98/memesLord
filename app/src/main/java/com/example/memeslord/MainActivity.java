@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         buttonRandomMeme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goRandomMeme = new Intent(v.getContext(), RandomMemeActivity.class);
+                Intent goRandomMeme = new Intent(v.getContext(), BrowseRedditActivity.class);
                 startActivity(goRandomMeme);
             }
         });

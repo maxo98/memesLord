@@ -10,7 +10,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context=".BrowseRedditActivity">
+    tools:context=".activity.BrowseRedditActivity">
 
 
     <androidx.cardview.widget.CardView

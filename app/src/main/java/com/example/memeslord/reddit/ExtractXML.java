@@ -1,4 +1,4 @@
-package com.example.memeslord;
+package com.example.memeslord.reddit;
 
 import android.util.Log;
 

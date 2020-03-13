@@ -1,4 +1,4 @@
-package com.example.memeslord;
+package com.example.memeslord.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,9 +10,10 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.example.memeslord.R;
+
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -90,7 +91,7 @@ public class NewMemeActivity extends AppCompatActivity {
         }
         if(imageUri != null) {
             String uriString = imageUri.toString();
-            Intent goCreateMeme = new Intent(this, CreateMeme.class);
+            Intent goCreateMeme = new Intent(this, CreateMemeActivity.class);
             goCreateMeme.putExtra("SelectedImage", uriString);
             startActivity(goCreateMeme);
         }

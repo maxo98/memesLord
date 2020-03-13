@@ -1,8 +1,8 @@
-package com.example.memeslord.model;
+package com.example.memeslord.reddit.model;
 
 import androidx.annotation.NonNull;
 
-import com.example.memeslord.model.entry.Entry;
+import com.example.memeslord.reddit.model.entry.Entry;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;

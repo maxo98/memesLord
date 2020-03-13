@@ -26,7 +26,7 @@
         </provider>
 
         
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,11 +34,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".NewMemeActivity"/>
-        <activity android:name=".CreateMeme"/>
-        <activity android:name=".ShowImageActivity"/>
-        <activity android:name=".BrowseRedditActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".activity.NewMemeActivity"/>
+        <activity android:name=".activity.CreateMemeActivity"/>
+        <activity android:name=".activity.ShowImageActivity"/>
+        <activity android:name=".activity.BrowseRedditActivity" />
+        <activity android:name=".activity.LoginActivity" />
     </application>
 
 </manifest>

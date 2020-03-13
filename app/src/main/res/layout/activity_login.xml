@@ -8,33 +8,32 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="406dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="228dp"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="292dp"
+        android:layout_marginEnd="50dp"
         android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="214dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="292dp"
+        android:gravity="center"
         android:text="Create account"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton"
-        app:layout_constraintVertical_bias="0.217" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/MotDePasse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,9 +45,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/MotDePasse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerButton" />
+
+    <TextView
+        android:id="@+id/textViewAccount"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="138dp"
+        android:background="@drawable/border"
+        android:fontFamily="sans-serif-medium"
+        android:text="Account Manager"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:gravity="center" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.memeslord;
+package com.example.memeslord.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,13 +19,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.memeslord.R;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CreateMeme extends AppCompatActivity implements View.OnTouchListener, View.OnFocusChangeListener{
+public class CreateMemeActivity extends AppCompatActivity implements View.OnTouchListener, View.OnFocusChangeListener{
 
     private String currentImagePath;
     private float dX;
@@ -59,12 +61,10 @@ public class CreateMeme extends AppCompatActivity implements View.OnTouchListene
         });
         //button to save the image
         Button saveButton = findViewById(R.id.buttonSave);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Bitmap bitmap = viewToBitmap(frameLayout);
-                if(bitmap != null) {
-                    saveImage(bitmap);
-                }
+        saveButton.setOnClickListener(v -> {
+            Bitmap bitmap = viewToBitmap(frameLayout);
+            if(bitmap != null) {
+                saveImage(bitmap);
             }
         });
     }
@@ -77,7 +77,7 @@ public class CreateMeme extends AppCompatActivity implements View.OnTouchListene
         et.setLayoutParams(p);
         et.setTextSize(30);
         et.setBackground(t.getBackground());
-        et.setText("Write something here");
+        et.setText("write something here");
         et.setClickable(true);
         et.setId(lineNumber + 1);
         lineNumber++;
@@ -139,6 +139,7 @@ public class CreateMeme extends AppCompatActivity implements View.OnTouchListene
         String storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
         return storageDir + imageFileName + ".jpg";
     }
+
     public void saveImage(Bitmap bitmap) {
         try {
             FileOutputStream output = new FileOutputStream(getImagePath());

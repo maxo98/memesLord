@@ -1,9 +1,7 @@
-package com.example.memeslord;
+package com.example.memeslord.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.memeslord.NewMemeActivity;
 import com.example.memeslord.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,21 +17,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
-
-
-
-
-
-
-
-
-
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-
-
-
 
     @Override
     public void onStart() {
@@ -51,9 +35,9 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent goNewMeme = new Intent(getApplicationContext(), NewMemeActivity.class);
-                            startActivity(goNewMeme);
-                            // Sign in success, update UI with the signed-in user's information
+                            Intent goMain = new Intent(getApplicationContext(), MainActivity.class);
+                            goMain.putExtra("logged", "logged");
+                            startActivity(goMain);
 
                             FirebaseUser user = mAuth.getCurrentUser();
                         } else {
@@ -76,8 +60,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent newMeme  = new Intent(getApplicationContext(), NewMemeActivity.class);
-
+                            Intent goMain  = new Intent(getApplicationContext(), MainActivity.class);
+                            goMain.putExtra("logged", true);
+                            startActivity(goMain);
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -90,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-// Initialize Firebase Auth
+    // Initialize Firebase Auth
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
@@ -100,21 +85,20 @@ public class LoginActivity extends AppCompatActivity {
         Button Register = findViewById(R.id.registerButton);
 
         Login.setOnClickListener(new View.OnClickListener() {
-                                     @Override
-                                     public void onClick(View v) {
-                                         singin(pseudo.getText().toString(), password.getText().toString());                                     }
-
+            @Override
+            public void onClick(View v) {
+                singin(pseudo.getText().toString(), password.getText().toString());
+            }
         });
-                Register.setOnClickListener(new View.OnClickListener() {
+
+        Register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 createAccount(pseudo.getText().toString(), password.getText().toString());
-
-
             }
-                        });
+        });
 
 
 
 
-            }
-        }
+    }
+}

@@ -1,6 +1,6 @@
-package com.example.memeslord;
+package com.example.memeslord.reddit;
 
-import com.example.memeslord.model.Feed;
+import com.example.memeslord.reddit.model.Feed;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

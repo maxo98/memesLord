@@ -1,4 +1,4 @@
-package com.example.memeslord.model.entry;
+package com.example.memeslord.reddit.model.entry;
 
 
 import org.simpleframework.xml.Element;

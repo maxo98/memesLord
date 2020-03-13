@@ -1,4 +1,4 @@
-package com.example.memeslord;
+package com.example.memeslord.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.memeslord.model.Feed;
-import com.example.memeslord.model.entry.Entry;
+import com.example.memeslord.R;
+import com.example.memeslord.reddit.CustomListAdapter;
+import com.example.memeslord.reddit.ExtractXML;
+import com.example.memeslord.reddit.FeedAPI;
+import com.example.memeslord.reddit.Post;
+import com.example.memeslord.reddit.model.Feed;
+import com.example.memeslord.reddit.model.entry.Entry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,14 +118,15 @@ public class BrowseRedditActivity extends AppCompatActivity {
                         }
                     });
                 }
+                else {
+                    Toast.makeText(BrowseRedditActivity.this, "Wrong Subreddit title", Toast.LENGTH_LONG);
+                }
             }
 
             @Override
             public void onFailure(Call<Feed> call, Throwable t) {
                 Log.e(TAG, "onFailure: Unable to retrieve RSS: " + t.getMessage());
                 Toast.makeText(BrowseRedditActivity.this, "An Error Occured", Toast.LENGTH_SHORT).show();
-
-
             }
         });
     }

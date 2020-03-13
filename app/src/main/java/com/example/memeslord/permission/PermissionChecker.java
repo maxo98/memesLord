@@ -1,4 +1,4 @@
-package com.example.memeslord;
+package com.example.memeslord.permission;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,13 +14,6 @@ public class PermissionChecker {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
-    /**
-     * Checks if the app has permission to write to device storage
-     *
-     * If the app does not has permission then the user will be prompted to grant permissions
-     *
-     * @param activity
-     */
     public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permissionRead = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE);

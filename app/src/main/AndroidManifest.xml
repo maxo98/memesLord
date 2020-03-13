@@ -14,13 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"> </meta-data>
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
 
         
@@ -36,6 +38,7 @@
         <activity android:name=".CreateMeme"/>
         <activity android:name=".ShowImageActivity"/>
         <activity android:name=".BrowseRedditActivity" />
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>
